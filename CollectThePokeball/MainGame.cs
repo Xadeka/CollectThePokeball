@@ -20,6 +20,7 @@ namespace CollectThePokeball
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Controls controls;
 
         Texture2D pikachu;
         Texture2D pokeball;
@@ -30,10 +31,10 @@ namespace CollectThePokeball
         SoundEffect crash;
         Song chiptune;
 
-        Vector2 pikaLocation;
+        public Vector2 pikaLocation;
 
         bool gameOver;
-        bool isFlipped;
+        public bool isFlipped;
 
         Pokeball pokeB;
         Stack<Poisonball> poisonB;
@@ -104,7 +105,8 @@ namespace CollectThePokeball
         {
             if (!gameOver)
             {
-                CheckForUserInput(1);
+                controls = new Controls(this);
+                controls.CheckForUserInput(1);
                 IsOnEdge();
 
                 //Make a new Rect for pikachu and pass it to IsCollected()
@@ -189,54 +191,6 @@ namespace CollectThePokeball
             spriteBatch.End();
 
             base.Draw(gameTime);
-        }
-
-        public void CheckForUserInput(int multiplier)
-        {
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
-            // TODO: Add your update logic here
-            if (Keyboard.GetState().IsKeyDown(Keys.W) && Keyboard.GetState().IsKeyDown(Keys.A))
-            {
-                pikaLocation.X -= 3 * multiplier;
-                pikaLocation.Y -= 4 * multiplier;
-                isFlipped = false;
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.W) && Keyboard.GetState().IsKeyDown(Keys.D))
-            {
-                pikaLocation.X += 3 * multiplier;
-                pikaLocation.Y -= 4 * multiplier;
-                isFlipped = true;
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.S) && Keyboard.GetState().IsKeyDown(Keys.A))
-            {
-                pikaLocation.X -= 3 * multiplier;
-                pikaLocation.Y += 4 * multiplier;
-                isFlipped = false;
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.S) && Keyboard.GetState().IsKeyDown(Keys.D))
-            {
-                pikaLocation.X += 3 * multiplier;
-                pikaLocation.Y += 4 * multiplier;
-                isFlipped = true;
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.W))
-                pikaLocation.Y -= 5 * multiplier;
-            else if (Keyboard.GetState().IsKeyDown(Keys.A))
-            {
-                pikaLocation.X -= 5 * multiplier;
-                isFlipped = false;
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.S))
-                pikaLocation.Y += 5 * multiplier;
-            else if (Keyboard.GetState().IsKeyDown(Keys.D))
-            {
-                pikaLocation.X += 5 * multiplier;
-                isFlipped = true;
-            }
-
-            Console.WriteLine("X: " + pikaLocation.X + " Y: " + pikaLocation.Y);
         }
 
         public void IsOnEdge()
