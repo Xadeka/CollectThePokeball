@@ -21,16 +21,18 @@ namespace CollectThePokeball
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        bool gameOver;
-
         Texture2D pikachu;
         Texture2D pokeball;
+
         SpriteFont font;
+
         SoundEffect ding;
         SoundEffect crash;
         Song chiptune;
 
         Vector2 pikaLocation;
+
+        bool gameOver;
         bool isFlipped;
 
         Pokeball pokeB;
